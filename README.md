@@ -1,105 +1,76 @@
-# AI vs Human Pull Requests: An Empirical Study on GitHub
+# AI vs Human Pull Requests
 
-This repository contains the data processing scripts and analysis pipeline used in the paper:
+This project compares **AI-generated pull requests** and **human-generated pull requests** on GitHub.
 
-**“The Visibility–Acceptance Paradox: A Large-Scale Study of AI-Generated Pull Requests in Open-Source Software”**
-
-The project investigates how **AI-generated pull requests (PRs)** compare to **human-generated PRs** in terms of:
-- processing speed,
-- community feedback,
-- and acceptance (merge likelihood).
+The goal is to understand how AI contributions are reviewed, discussed, and accepted in open-source projects.
 
 ---
 
-## 📌 Research Motivation
+## What is this project about?
 
-Autonomous AI agents are now capable of submitting pull requests without human intervention.  
-While these contributions are technically valid and highly active, their integration into open-source communities remains unclear.
+Autonomous AI agents can now create pull requests by themselves.
+They write code, fix issues, and submit changes without human help.
 
-This project aims to answer the following question:
-
-> **Do AI-generated pull requests perform as well as human pull requests in real open-source workflows?**
-
----
-
-## 🔬 Research Questions
-
-The study is structured around three research questions:
-
-### RQ1 – Speed  
-Are AI-generated PRs processed faster than human PRs?
-- Time to first comment
-- Time to first review
-- Total PR duration
-
-### RQ2 – Feedback  
-Do AI PRs receive different feedback compared to human PRs?
-- Number of comments
-- Review approval rate
-- Average comment length
-
-### RQ3 – Acceptance  
-Are AI PRs more likely to be merged, and in what contexts?
-- Merge rate
-- Number of commits
-- Linkage to GitHub issues
+This project studies:
+- How fast AI pull requests are reviewed
+- How much feedback they receive
+- How often they are merged compared to human pull requests
 
 ---
 
-## 📊 Dataset
+## Research Questions
 
-This project uses the **AIDev dataset**:
+1. **Speed**
+   - Time to first comment
+   - Time to first review
+   - Total time before merge or close
 
-> Li et al., *AIDev: A Dataset of AI Agent Contributions to GitHub*, 2025.
+2. **Feedback**
+   - Number of comments
+   - Review approval rate
+   - Average comment length
 
-The dataset includes:
+3. **Acceptance**
+   - Merge rate
+   - Number of commits
+   - Link to GitHub issues
+
+---
+
+## Dataset
+
+We use the **AIDev dataset**, which contains GitHub activity such as:
 - pull requests
 - users
 - comments
 - reviews
 - commits
-- related issues
+- issues
 
-**Scale of analysis:**  
-📦 **932,791 pull requests**
+Pull requests are labeled as:
+- **AI** if the author username contains `bot`
+- **Human** otherwise
 
-### Author Classification
-- PRs are labeled as **AI-generated** if the author login contains `"bot"` (case-insensitive)
-- Otherwise, PRs are labeled as **human-generated**
+Total analyzed pull requests: **932,791**
 
 ---
 
-## 🧠 Key Findings
+## Main Findings
 
-The analysis reveals a phenomenon called the **Visibility–Acceptance Paradox**:
-
-- AI PRs receive **faster initial reactions**, often from automated tools.
-- They attract **more comments** and are **more frequently linked to issues**.
+- AI pull requests get **very fast initial comments**, mostly from automated tools.
+- They receive **more comments** and are often linked to issues.
 - However, they:
-  - stay open significantly longer,
-  - and are **merged less often** than human PRs.
+  - stay open longer
+  - are merged less often than human pull requests
 
-This suggests that AI agents are technically active but struggle with **social integration** in open-source communities.
+This behavior is called the **Visibility–Acceptance Paradox**.
 
 ---
 
-## 🛠️ Project Structure
+## Project Structure
 
 ```text
-.
-├── data/
-│   ├── raw/                  # Raw AIDev tables (PRs, comments, reviews, etc.)
-│   └── processed/            # Cleaned and merged datasets
-│
-├── scripts/
-│   ├── build_analysis_table.py   # Builds PR-level analysis table
-│   ├── compute_metrics.py        # Computes RQ1–RQ3 metrics
-│
-├── results/
-│   ├── figures/              # Plots and visualizations
-│   └── tables/               # Aggregated result tables
-│
-├── aidev_analysis_ready_table.parquet
+.         
+├── jupyter notebook       # Python analysis scripts    
 ├── README.md
-└── paper/
-    └── main.tex               # LaTeX paper
+└── paper          # LaTeX paper
